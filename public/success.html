@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Update Successful | DroneOps</title>
+  <meta name="description" content="Mission updated successfully." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✅</text></svg>" />
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a class="navbar-brand" href="index.html">
+      <span class="navbar-logo">🚁</span>
+      <div>
+        <div class="navbar-title">DroneOps</div>
+        <div class="navbar-subtitle">Mission Control</div>
+      </div>
+    </a>
+    <ul class="navbar-nav">
+      <li><a href="index.html" class="nav-link" id="nav-home">🏠 Home</a></li>
+      <li><a href="search.html" class="nav-link" id="nav-search">🔍 Search Mission</a></li>
+    </ul>
+  </nav>
+
+  <!-- Success Page -->
+  <main class="result-page">
+    <div class="result-card glass-card">
+
+      <!-- Success Icon -->
+      <div class="result-icon-wrapper success-icon">
+        ✅
+      </div>
+
+      <h1 class="result-title success">Mission Updated!</h1>
+      <p class="result-message">
+        The drone delivery mission has been successfully updated in the database.
+        The changes to the permitted fields have been saved.
+      </p>
+
+      <!-- Updated Details -->
+      <div class="result-details" id="success-details">
+        <div class="result-detail-row">
+          <span class="result-detail-key">Mission ID</span>
+          <span class="result-detail-val" id="s-mission-id">—</span>
+        </div>
+        <div class="result-detail-row">
+          <span class="result-detail-key">Operator ID</span>
+          <span class="result-detail-val" id="s-operator-id">—</span>
+        </div>
+        <div class="result-detail-row">
+          <span class="result-detail-key">New Delivery Window</span>
+          <span class="result-detail-val" id="s-delivery-window">—</span>
+        </div>
+        <div class="result-detail-row">
+          <span class="result-detail-key">New Package Priority</span>
+          <span class="result-detail-val" id="s-package-priority">—</span>
+        </div>
+        <div class="result-detail-row">
+          <span class="result-detail-key">Updated At</span>
+          <span class="result-detail-val" id="s-updated-at">—</span>
+        </div>
+        <div class="result-detail-row">
+          <span class="result-detail-key">Fields Updated</span>
+          <span class="result-detail-val" id="s-fields-updated" style="color: var(--success);">—</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="btn-group">
+        <a href="search.html" class="btn btn-primary" id="btn-search-again">
+          🔍 Search Another Mission
+        </a>
+        <a href="index.html" class="btn btn-outline" id="btn-go-home">
+          🏠 Back to Home
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Confetti Effect -->
+  <canvas id="confetti-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999;"></canvas>
+
+  <!-- Particles -->
+  <script>
+    for (let i = 0; i < 15; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.animationDuration = (Math.random() * 15 + 10) + 's';
+      p.style.animationDelay = (Math.random() * 10) + 's';
+      document.body.appendChild(p);
+    }
+
+    // Load success data from sessionStorage
+    window.addEventListener('DOMContentLoaded', () => {
+      const result = JSON.parse(sessionStorage.getItem('updateResult') || '{}');
+      const mission = result.data || {};
+
+      document.getElementById('s-mission-id').textContent     = mission.missionId     || '—';
+      document.getElementById('s-operator-id').textContent    = mission.operatorId    || '—';
+      document.getElementById('s-delivery-window').textContent= mission.deliveryWindow|| '—';
+      document.getElementById('s-package-priority').textContent= mission.packagePriority || '—';
+      document.getElementById('s-updated-at').textContent     = mission.updatedAt
+        ? new Date(mission.updatedAt).toLocaleString('en-IN')
+        : new Date().toLocaleString('en-IN');
+      document.getElementById('s-fields-updated').textContent =
+        (result.updatedFields || []).join(', ') || 'deliveryWindow, packagePriority';
+
+      // Simple confetti
+      runConfetti();
+    });
+
+    // Mini confetti animation
+    function runConfetti() {
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const pieces = Array.from({ length: 80 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height - canvas.height,
+        r: Math.random() * 8 + 4,
+        d: Math.random() + 1,
+        color: ['#00e5ff', '#ffd700', '#00ff88', '#ff4757', '#7c3aed'][Math.floor(Math.random() * 5)],
+        tilt: Math.floor(Math.random() * 10) - 10,
+        tiltAngle: 0,
+        tiltSpeed: Math.random() * 0.1 + 0.05,
+      }));
+
+      let frame = 0;
+      const animate = () => {
+        if (frame > 200) { ctx.clearRect(0, 0, canvas.width, canvas.height); return; }
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        pieces.forEach((p) => {
+          p.tiltAngle += p.tiltSpeed;
+          p.y += p.d + 1;
+          p.tilt = Math.sin(p.tiltAngle) * 15;
+          if (p.y > canvas.height) { p.y = -10; p.x = Math.random() * canvas.width; }
+          ctx.beginPath();
+          ctx.lineWidth = p.r;
+          ctx.strokeStyle = p.color;
+          ctx.moveTo(p.x + p.tilt + p.r / 3, p.y);
+          ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 5);
+          ctx.stroke();
+        });
+        frame++;
+        requestAnimationFrame(animate);
+      };
+      animate();
+    }
+  </script>
+</body>
+</html>

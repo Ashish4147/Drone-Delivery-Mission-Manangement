@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Search Mission | DroneOps</title>
+  <meta name="description" content="Search for a drone delivery mission using Mission ID and Operator ID." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚁</text></svg>" />
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar" role="navigation">
+    <a class="navbar-brand" href="index.html">
+      <span class="navbar-logo">🚁</span>
+      <div>
+        <div class="navbar-title">DroneOps</div>
+        <div class="navbar-subtitle">Mission Control</div>
+      </div>
+    </a>
+    <ul class="navbar-nav">
+      <li><a href="index.html" class="nav-link" id="nav-home">🏠 Home</a></li>
+      <li><a href="search.html" class="nav-link active" id="nav-search">🔍 Search Mission</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Page -->
+  <main class="page">
+    <div class="container" style="max-width: 640px; padding-top: 2rem; padding-bottom: 4rem;">
+
+      <!-- Page Header -->
+      <div class="page-header" style="padding: 3rem 0 2rem;">
+        <div class="page-badge">🔍 MISSION LOOKUP</div>
+        <h1 class="page-title">Search Mission</h1>
+        <p class="page-description">
+          Enter the two unique identifiers below to search and retrieve the complete mission record from the database.
+        </p>
+      </div>
+
+      <!-- Info Alert -->
+      <div class="alert alert-info" id="search-info-alert">
+        <span class="alert-icon">ℹ️</span>
+        <div>
+          <strong>How to Search:</strong> Provide both <strong>Mission ID</strong> (e.g., <code style="font-family:var(--font-code); color:var(--accent-cyan);">MSN001</code>) and
+          <strong>Operator ID</strong> (e.g., <code style="font-family:var(--font-code); color:var(--accent-cyan);">OPR101</code>) to find a mission record.
+        </div>
+      </div>
+
+      <!-- Search Form -->
+      <div class="glass-card">
+        <form id="search-form" novalidate>
+
+          <!-- Mission ID Field -->
+          <div class="form-group">
+            <label class="form-label" for="missionId">
+              🎯 Mission ID <span class="required">*</span>
+            </label>
+            <input
+              type="text"
+              id="missionId"
+              name="missionId"
+              class="form-control"
+              placeholder="e.g. MSN001"
+              maxlength="6"
+              autocomplete="off"
+              aria-describedby="missionId-hint missionId-error"
+              required
+            />
+            <div class="form-hint" id="missionId-hint">Format: MSN followed by 3 digits (e.g., MSN001, MSN003)</div>
+            <div class="form-error" id="missionId-error" role="alert"></div>
+          </div>
+
+          <!-- Operator ID Field -->
+          <div class="form-group">
+            <label class="form-label" for="operatorId">
+              👤 Operator ID <span class="required">*</span>
+            </label>
+            <input
+              type="text"
+              id="operatorId"
+              name="operatorId"
+              class="form-control"
+              placeholder="e.g. OPR101"
+              maxlength="6"
+              autocomplete="off"
+              aria-describedby="operatorId-hint operatorId-error"
+              required
+            />
+            <div class="form-hint" id="operatorId-hint">Format: OPR followed by 3 digits (e.g., OPR101, OPR103)</div>
+            <div class="form-error" id="operatorId-error" role="alert"></div>
+          </div>
+
+          <!-- Form-level error -->
+          <div class="alert alert-danger hidden" id="form-error-alert">
+            <span class="alert-icon">❌</span>
+            <span id="form-error-message"></span>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn-primary" id="btn-search">
+            <span class="btn-text">🔍 Search Mission</span>
+          </button>
+
+          <!-- Quick Fill Helper -->
+          <div class="section-divider" style="margin-top: 1.5rem;">
+            <span class="section-divider-label">Quick Fill (Demo)</span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+            <button type="button" class="btn btn-outline btn-sm quick-fill" data-mission="MSN001" data-operator="OPR101" id="qf-msn001">
+              MSN001 (Pending ✅)
+            </button>
+            <button type="button" class="btn btn-outline btn-sm quick-fill" data-mission="MSN002" data-operator="OPR102" id="qf-msn002">
+              MSN002 (Dispatched ❌)
+            </button>
+            <button type="button" class="btn btn-outline btn-sm quick-fill" data-mission="MSN003" data-operator="OPR103" id="qf-msn003">
+              MSN003 (Pending ✅)
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Back Button -->
+      <div style="text-align: center; margin-top: 1.5rem;">
+        <a href="index.html" class="btn btn-outline btn-sm" style="width: auto; padding: 10px 20px;" id="btn-back-home">
+          ← Back to Home
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Floating Particles -->
+  <script>
+    for (let i = 0; i < 10; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.animationDuration = (Math.random() * 15 + 10) + 's';
+      p.style.animationDelay = (Math.random() * 10) + 's';
+      document.body.appendChild(p);
+    }
+  </script>
+
+  <!-- Search Logic -->
+  <script src="js/search.js"></script>
+</body>
+</html>

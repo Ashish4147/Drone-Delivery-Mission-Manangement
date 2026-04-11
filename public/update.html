@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Update Mission | DroneOps</title>
+  <meta name="description" content="Update permitted fields of a drone delivery mission." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚁</text></svg>" />
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a class="navbar-brand" href="index.html">
+      <span class="navbar-logo">🚁</span>
+      <div>
+        <div class="navbar-title">DroneOps</div>
+        <div class="navbar-subtitle">Mission Control</div>
+      </div>
+    </a>
+    <ul class="navbar-nav">
+      <li><a href="index.html" class="nav-link" id="nav-home">🏠 Home</a></li>
+      <li><a href="search.html" class="nav-link" id="nav-search">🔍 Search Mission</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Page -->
+  <main class="page">
+    <div class="container" style="max-width: 720px; padding-top: 2rem; padding-bottom: 4rem;">
+
+      <!-- Page Header -->
+      <div class="page-header" style="padding: 3rem 0 2rem;">
+        <div class="page-badge">✏️ MISSION UPDATE</div>
+        <h1 class="page-title">Update Mission</h1>
+        <p class="page-description">Modify only the permitted fields. Non-editable fields are displayed as read-only.</p>
+      </div>
+
+      <!-- No Data Alert -->
+      <div class="alert alert-warning hidden" id="no-data-alert">
+        <span class="alert-icon">⚠️</span>
+        <div>No mission data. Please <a href="search.html" style="color: var(--warning); text-decoration: underline;">search first</a>.</div>
+      </div>
+
+      <!-- Mission ID Header Bar -->
+      <div class="glass-card" style="margin-bottom: 1.5rem; padding: 1.2rem 1.8rem;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <p style="font-size: 0.7rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 3px;">Updating Mission</p>
+            <h2 id="update-mission-id" style="font-family: var(--font-heading); color: var(--accent-cyan); font-size: 1.4rem; text-shadow: var(--glow-cyan);">—</h2>
+          </div>
+          <span id="update-status-badge" class="status-badge">—</span>
+        </div>
+      </div>
+
+      <!-- Business Rule Alert -->
+      <div class="alert alert-success" id="update-allowed-banner" style="margin-bottom: 1.5rem;">
+        <span class="alert-icon">✅</span>
+        <div>
+          <strong>Update Permitted:</strong> This mission status is <strong>Pending</strong>.
+          You may update the Delivery Window and Package Priority fields.
+        </div>
+      </div>
+
+      <!-- Update Form Card -->
+      <div class="glass-card">
+        <form id="update-form" novalidate>
+          <!-- Hidden Fields (for API call) -->
+          <input type="hidden" id="hidden-mission-id" name="missionId" />
+          <input type="hidden" id="hidden-operator-id" name="operatorId" />
+
+          <!-- ── NON-EDITABLE FIELDS (Display Only) ── -->
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 1rem;">
+            <span>🔒</span>
+            <h3 style="font-family: var(--font-heading); font-size: 0.8rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase;">Read-Only Fields</h3>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" for="ro-mission-id">🎯 Mission ID</label>
+              <input type="text" id="ro-mission-id" class="form-control" readonly />
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" for="ro-operator-id">👤 Operator ID</label>
+              <input type="text" id="ro-operator-id" class="form-control" readonly />
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" for="ro-operator-name">🧑‍✈️ Operator Name</label>
+              <input type="text" id="ro-operator-name" class="form-control" readonly />
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" for="ro-drone-model">🤖 Drone Model</label>
+              <input type="text" id="ro-drone-model" class="form-control" readonly />
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" for="ro-pkg-weight">📦 Package Weight (kg)</label>
+              <input type="text" id="ro-pkg-weight" class="form-control" readonly />
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label" for="ro-status">📊 Current Status</label>
+              <input type="text" id="ro-status" class="form-control" readonly />
+            </div>
+          </div>
+
+          <div class="section-divider">
+            <span class="section-divider-label">✏️ Editable Fields</span>
+          </div>
+
+          <!-- ── EDITABLE FIELDS ── -->
+          <div class="alert alert-info" style="margin-bottom: 1.5rem;">
+            <span class="alert-icon">💡</span>
+            <div>The fields below can be modified. At least one field must be changed.</div>
+          </div>
+
+          <!-- Delivery Window -->
+          <div class="form-group">
+            <label class="form-label" for="deliveryWindow">
+              ⏰ Delivery Window ✏️ <span class="required">*</span>
+            </label>
+            <input
+              type="text"
+              id="deliveryWindow"
+              name="deliveryWindow"
+              class="form-control"
+              placeholder="e.g. 09:00 - 11:00"
+              aria-describedby="window-hint window-error"
+            />
+            <div class="form-hint" id="window-hint">Format: HH:MM - HH:MM (24-hour format, e.g., 09:00 - 11:00)</div>
+            <div class="form-error" id="window-error" role="alert"></div>
+          </div>
+
+          <!-- Package Priority -->
+          <div class="form-group">
+            <label class="form-label" for="packagePriority">
+              🚨 Package Priority ✏️ <span class="required">*</span>
+            </label>
+            <select
+              id="packagePriority"
+              name="packagePriority"
+              class="form-select"
+              aria-describedby="priority-error"
+            >
+              <option value="">-- Select Priority --</option>
+              <option value="Low">🟢 Low</option>
+              <option value="Medium">🟡 Medium</option>
+              <option value="High">🟠 High</option>
+              <option value="Critical">🔴 Critical</option>
+            </select>
+            <div class="form-error" id="priority-error" role="alert"></div>
+          </div>
+
+          <!-- Form-level error -->
+          <div class="alert alert-danger hidden" id="form-error-alert">
+            <span class="alert-icon">❌</span>
+            <span id="form-error-message"></span>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn-primary" id="btn-update">
+            <span class="btn-text">🚀 Update Mission</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Back Button -->
+      <div class="btn-row" style="margin-top: 1rem;">
+        <a href="details.html" class="btn btn-outline" id="btn-back-details">← Back to Details</a>
+        <a href="search.html" class="btn btn-outline" id="btn-new-search" style="color: var(--text-secondary); border-color: var(--border-subtle);">🔍 New Search</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Particles -->
+  <script>
+    for (let i = 0; i < 10; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.animationDuration = (Math.random() * 15 + 10) + 's';
+      p.style.animationDelay = (Math.random() * 10) + 's';
+      document.body.appendChild(p);
+    }
+  </script>
+
+  <!-- Update Logic -->
+  <script src="js/update.js"></script>
+</body>
+</html>

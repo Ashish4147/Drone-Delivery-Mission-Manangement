@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DroneOps | Drone Delivery Mission Management System</title>
+  <meta name="description" content="Advanced Drone Delivery Mission Management System - Search, view and update drone delivery missions in real-time with full validation and business rule enforcement." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚁</text></svg>" />
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar" role="navigation" aria-label="Main Navigation">
+    <a class="navbar-brand" href="index.html" id="nav-logo">
+      <span class="navbar-logo">🚁</span>
+      <div>
+        <div class="navbar-title">DroneOps</div>
+        <div class="navbar-subtitle">Mission Control</div>
+      </div>
+    </a>
+    <ul class="navbar-nav">
+      <li><a href="index.html" class="nav-link active" id="nav-home">🏠 Home</a></li>
+      <li><a href="search.html" class="nav-link" id="nav-search">🔍 Search Mission</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <main class="page">
+    <section class="hero">
+      <div class="container">
+        <span class="hero-drone">🚁</span>
+
+        <div class="page-badge">
+          <span>●</span> DIGITAL APPLICATION DEVELOPMENT
+        </div>
+
+        <h1 class="hero-title">
+          Drone Delivery<br/>Mission Management
+        </h1>
+        <p class="hero-subtitle">
+          A next-generation web-based system to search, display, and update drone delivery
+          missions — powered by MERN stack with full business rule enforcement.
+        </p>
+
+        <div class="btn-row" style="justify-content: center; max-width: 420px; margin: 0 auto;">
+          <a href="search.html" class="btn btn-primary" id="btn-search-mission">
+            🔍 Search Mission
+          </a>
+          <a href="#features" class="btn btn-outline" id="btn-learn-more">
+            📋 Learn More
+          </a>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar" style="margin-top: 4rem; border-radius: 16px;">
+          <div class="stat-item">
+            <span class="stat-value">5</span>
+            <span class="stat-label">Sample Missions</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">2</span>
+            <span class="stat-label">Unique Identifiers</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">MERN</span>
+            <span class="stat-label">Tech Stack</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">100%</span>
+            <span class="stat-label">Validated</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="container" style="padding-bottom: 5rem;">
+      <div class="page-header" style="padding-top: 2rem;">
+        <div class="page-badge">⚙️ SYSTEM FEATURES</div>
+        <h2 class="page-title">What This System Does</h2>
+        <p class="page-description">A complete digital management application with full validation, business rules, and real-time updates.</p>
+      </div>
+
+      <div class="features-grid" id="features">
+        <div class="feature-card">
+          <div class="feature-icon">🔍</div>
+          <div class="feature-title">Dual-Key Search</div>
+          <p class="feature-desc">Search missions using two unique identifiers — Mission ID and Operator ID — with client-side and server-side validation.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📋</div>
+          <div class="feature-title">Full Details Display</div>
+          <p class="feature-desc">View complete mission details including editable and non-editable fields, with clear visual distinction.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🛡️</div>
+          <div class="feature-title">Business Rules</div>
+          <p class="feature-desc">Updates are only permitted when mission status is <strong>Pending</strong>. Dispatched/Delivered/Cancelled missions are locked.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">✅</div>
+          <div class="feature-title">Dual Validation</div>
+          <p class="feature-desc">Client-side validation using JavaScript on the frontend, with server-side validation in the service layer using exception handling.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔄</div>
+          <div class="feature-title">RESTful APIs</div>
+          <p class="feature-desc">Clean REST API endpoints with structured JSON responses, integrated with Sessions and Cookies for state management.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <div class="feature-title">Success & Failure Pages</div>
+          <p class="feature-desc">Descriptive success page on completion and informative failure page when the record is not found or update is not permitted.</p>
+        </div>
+      </div>
+
+      <!-- Workflow Section -->
+      <div class="glass-card" style="margin-top: 3rem;">
+        <h3 class="page-title" style="font-size: 1.4rem; text-align: center; margin-bottom: 1.5rem;">
+          Expected Workflow
+        </h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; text-align: center;">
+          <div style="padding: 1rem;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">1️⃣</div>
+            <strong style="color: var(--accent-cyan); font-size: 0.85rem;">Enter IDs</strong>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.4rem;">Enter Mission ID + Operator ID</p>
+          </div>
+          <div style="padding: 1rem;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">2️⃣</div>
+            <strong style="color: var(--accent-cyan); font-size: 0.85rem;">Validate</strong>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.4rem;">Client + Server side validation</p>
+          </div>
+          <div style="padding: 1rem;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">3️⃣</div>
+            <strong style="color: var(--accent-cyan); font-size: 0.85rem;">View Details</strong>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.4rem;">Full mission details displayed</p>
+          </div>
+          <div style="padding: 1rem;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">4️⃣</div>
+            <strong style="color: var(--accent-cyan); font-size: 0.85rem;">Update Fields</strong>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.4rem;">Modify permitted fields only</p>
+          </div>
+          <div style="padding: 1rem;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">5️⃣</div>
+            <strong style="color: var(--accent-cyan); font-size: 0.85rem;">Business Check</strong>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.4rem;">Status verified by server</p>
+          </div>
+          <div style="padding: 1rem;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">6️⃣</div>
+            <strong style="color: var(--accent-cyan); font-size: 0.85rem;">Result Page</strong>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.4rem;">Success ✅ or Failure ❌</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sample Data Table -->
+      <div class="glass-card" style="margin-top: 2rem; overflow-x: auto;">
+        <h3 style="font-family: var(--font-heading); font-size: 1rem; color: var(--accent-cyan); margin-bottom: 1.2rem; letter-spacing: 1px;">
+          📦 SAMPLE DATABASE RECORDS
+        </h3>
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+          <thead>
+            <tr style="border-bottom: 1px solid var(--border-glow);">
+              <th style="padding: 10px; text-align: left; color: var(--text-muted); font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase;">Mission ID</th>
+              <th style="padding: 10px; text-align: left; color: var(--text-muted); font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase;">Operator ID</th>
+              <th style="padding: 10px; text-align: left; color: var(--text-muted); font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase;">Operator</th>
+              <th style="padding: 10px; text-align: left; color: var(--text-muted); font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase;">Status</th>
+              <th style="padding: 10px; text-align: left; color: var(--text-muted); font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase;">Can Update?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid var(--border-subtle);">
+              <td style="padding: 10px; color: var(--accent-cyan); font-family: var(--font-code);">MSN001</td>
+              <td style="padding: 10px; color: var(--accent-cyan); font-family: var(--font-code);">OPR101</td>
+              <td style="padding: 10px; color: var(--text-primary);">Rajesh Kumar</td>
+              <td style="padding: 10px;"><span class="status-badge status-pending">Pending</span></td>
+              <td style="padding: 10px; color: var(--success);">✅ Yes</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border-subtle);">
+              <td style="padding: 10px; color: var(--accent-cyan); font-family: var(--font-code);">MSN002</td>
+              <td style="padding: 10px; color: var(--accent-cyan); font-family: var(--font-code);">OPR102</td>
+              <td style="padding: 10px; color: var(--text-primary);">Priya Sharma</td>
+              <td style="padding: 10px;"><span class="status-badge status-dispatched">Dispatched</span></td>
+              <td style="padding: 10px; color: var(--danger);">❌ No</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border-subtle);">
+              <td style="padding: 10px; color: var(--accent-cyan); font-family: var(--font-code);">MSN003</td>
+              <td style="padding: 10px; color: var(--accent-cyan); font-family: var(--font-code);">OPR103</td>
+              <td style="padding: 10px; color: var(--text-primary);">Aakash Verma</td>
+              <td style="padding: 10px;"><span class="status-badge status-pending">Pending</span></td>
+              <td style="padding: 10px; color: var(--success);">✅ Yes</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border-subtle);">
+              <td style="padding: 10px; color: var(--accent-cyan); font-family: var(--font-code);">MSN004</td>
+              <td style="padding: 10px; color: var(--accent-cyan); font-family: var(--font-code);">OPR104</td>
+              <td style="padding: 10px; color: var(--text-primary);">Sneha Patel</td>
+              <td style="padding: 10px;"><span class="status-badge status-delivered">Delivered</span></td>
+              <td style="padding: 10px; color: var(--danger);">❌ No</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; color: var(--accent-cyan); font-family: var(--font-code);">MSN005</td>
+              <td style="padding: 10px; color: var(--accent-cyan); font-family: var(--font-code);">OPR105</td>
+              <td style="padding: 10px; color: var(--text-primary);">Vikram Singh</td>
+              <td style="padding: 10px;"><span class="status-badge status-cancelled">Cancelled</span></td>
+              <td style="padding: 10px; color: var(--danger);">❌ No</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="text-align: center; margin-top: 2.5rem;">
+        <a href="search.html" class="btn btn-primary" style="max-width: 300px; margin: 0 auto;" id="btn-start-search">
+          🚁 Start Searching Missions
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Floating Particles -->
+  <script>
+    // Create floating particles for ambient effect
+    for (let i = 0; i < 15; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.animationDuration = (Math.random() * 15 + 10) + 's';
+      p.style.animationDelay = (Math.random() * 10) + 's';
+      p.style.width = p.style.height = (Math.random() * 3 + 1) + 'px';
+      document.body.appendChild(p);
+    }
+  </script>
+</body>
+</html>

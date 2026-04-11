@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mission Details | DroneOps</title>
+  <meta name="description" content="View complete drone delivery mission details." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚁</text></svg>" />
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a class="navbar-brand" href="index.html">
+      <span class="navbar-logo">🚁</span>
+      <div>
+        <div class="navbar-title">DroneOps</div>
+        <div class="navbar-subtitle">Mission Control</div>
+      </div>
+    </a>
+    <ul class="navbar-nav">
+      <li><a href="index.html" class="nav-link" id="nav-home">🏠 Home</a></li>
+      <li><a href="search.html" class="nav-link" id="nav-search">🔍 Search Mission</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Page -->
+  <main class="page">
+    <div class="container" style="max-width: 900px; padding-top: 2rem; padding-bottom: 4rem;">
+
+      <!-- Page Header -->
+      <div class="page-header" style="padding: 3rem 0 2rem;">
+        <div class="page-badge">📋 MISSION RECORD</div>
+        <h1 class="page-title">Mission Details</h1>
+        <p class="page-description">Complete information for the retrieved mission record.</p>
+      </div>
+
+      <!-- No Data Warning (shown when page loaded directly) -->
+      <div class="alert alert-warning" id="no-data-alert" style="display: none;">
+        <span class="alert-icon">⚠️</span>
+        <div>
+          No mission data found. Please <a href="search.html" style="color: var(--warning); text-decoration: underline;">search for a mission</a> first.
+        </div>
+      </div>
+
+      <!-- Main Details Card -->
+      <div id="mission-details-section">
+
+        <!-- Mission ID Header -->
+        <div class="glass-card" style="margin-bottom: 1.5rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <p style="font-size: 0.72rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px;">Mission</p>
+              <h2 id="detail-mission-id" style="font-family: var(--font-heading); font-size: 1.6rem; color: var(--accent-cyan); text-shadow: var(--glow-cyan);">—</h2>
+            </div>
+            <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+              <span id="detail-status-badge" class="status-badge">—</span>
+              <span id="detail-priority-badge" class="priority-badge">—</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Business Rule Alert -->
+        <div id="update-allowed-alert" class="alert hidden" style="margin-bottom: 1.5rem;">
+          <span class="alert-icon" id="update-alert-icon"></span>
+          <div id="update-alert-text"></div>
+        </div>
+
+        <!-- NON-EDITABLE FIELDS -->
+        <div class="glass-card" style="margin-bottom: 1.5rem;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 1.2rem;">
+            <span style="font-size: 1rem;">🔒</span>
+            <h3 style="font-family: var(--font-heading); font-size: 0.85rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase;">Non-Editable Fields</h3>
+          </div>
+
+          <div class="detail-grid">
+            <div class="detail-item">
+              <div class="detail-label">🎯 Mission ID <span class="lock-icon">🔒</span></div>
+              <div class="detail-value" id="detail-mission-id-2">—</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">👤 Operator ID <span class="lock-icon">🔒</span></div>
+              <div class="detail-value" id="detail-operator-id">—</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">🧑‍✈️ Operator Name <span class="lock-icon">🔒</span></div>
+              <div class="detail-value" id="detail-operator-name">—</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">🤖 Drone Model <span class="lock-icon">🔒</span></div>
+              <div class="detail-value" id="detail-drone-model">—</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">📦 Package Weight <span class="lock-icon">🔒</span></div>
+              <div class="detail-value" id="detail-package-weight">—</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">📅 Assigned Date <span class="lock-icon">🔒</span></div>
+              <div class="detail-value" id="detail-assigned-date">—</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">🕐 Estimated Delivery <span class="lock-icon">🔒</span></div>
+              <div class="detail-value" id="detail-estimated-delivery">—</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">📍 Pickup Location <span class="lock-icon">🔒</span></div>
+              <div class="detail-value" id="detail-pickup-loc">—</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">🏁 Drop Location <span class="lock-icon">🔒</span></div>
+              <div class="detail-value" id="detail-drop-loc">—</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EDITABLE FIELDS -->
+        <div class="glass-card" style="margin-bottom: 1.5rem;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 1.2rem;">
+            <span style="font-size: 1rem;">✏️</span>
+            <h3 style="font-family: var(--font-heading); font-size: 0.85rem; color: var(--accent-cyan); letter-spacing: 2px; text-transform: uppercase;">Editable Fields</h3>
+            <span style="font-size: 0.72rem; color: var(--text-muted); margin-left: 4px;">(Allowed when status = Pending)</span>
+          </div>
+
+          <div class="detail-grid">
+            <div class="detail-item" style="border-color: rgba(0,229,255,0.2);">
+              <div class="detail-label">⏰ Delivery Window ✏️</div>
+              <div class="detail-value editable" id="detail-delivery-window">—</div>
+            </div>
+            <div class="detail-item" style="border-color: rgba(0,229,255,0.2);">
+              <div class="detail-label">🚨 Package Priority ✏️</div>
+              <div class="detail-value editable" id="detail-package-priority">—</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="btn-group">
+          <div class="btn-row">
+            <a href="update.html" class="btn btn-primary" id="btn-proceed-update">
+              ✏️ Proceed to Update
+            </a>
+            <a href="search.html" class="btn btn-outline" id="btn-new-search">
+              🔍 New Search
+            </a>
+          </div>
+          <a href="index.html" class="btn btn-outline" id="btn-back-home" style="border-color: var(--border-subtle); color: var(--text-secondary);">
+            🏠 Back to Home
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Particles -->
+  <script>
+    for (let i = 0; i < 10; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.animationDuration = (Math.random() * 15 + 10) + 's';
+      p.style.animationDelay = (Math.random() * 10) + 's';
+      document.body.appendChild(p);
+    }
+  </script>
+
+  <!-- Details Logic -->
+  <script src="js/details.js"></script>
+</body>
+</html>

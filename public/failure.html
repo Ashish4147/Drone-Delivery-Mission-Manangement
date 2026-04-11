@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Operation Failed | DroneOps</title>
+  <meta name="description" content="Mission not found or update not permitted." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❌</text></svg>" />
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a class="navbar-brand" href="index.html">
+      <span class="navbar-logo">🚁</span>
+      <div>
+        <div class="navbar-title">DroneOps</div>
+        <div class="navbar-subtitle">Mission Control</div>
+      </div>
+    </a>
+    <ul class="navbar-nav">
+      <li><a href="index.html" class="nav-link" id="nav-home">🏠 Home</a></li>
+      <li><a href="search.html" class="nav-link" id="nav-search">🔍 Search Mission</a></li>
+    </ul>
+  </nav>
+
+  <!-- Failure Page -->
+  <main class="result-page">
+    <div class="result-card glass-card" style="border-color: rgba(255, 71, 87, 0.3);">
+
+      <!-- Failure Icon -->
+      <div class="result-icon-wrapper failure-icon">
+        ❌
+      </div>
+
+      <h1 class="result-title failure" id="failure-title">Operation Failed</h1>
+      <p class="result-message" id="failure-message">
+        The operation could not be completed. Either the record was not found in the database,
+        or the mission status does not permit updates at this time.
+      </p>
+
+      <!-- Failure Details -->
+      <div class="result-details">
+        <div class="result-detail-row">
+          <span class="result-detail-key">Error Type</span>
+          <span class="result-detail-val" id="f-error-type" style="color: var(--danger);">—</span>
+        </div>
+        <div class="result-detail-row">
+          <span class="result-detail-key">Reason</span>
+          <span class="result-detail-val" id="f-reason" style="color: var(--warning);">—</span>
+        </div>
+        <div class="result-detail-row">
+          <span class="result-detail-key">Mission ID</span>
+          <span class="result-detail-val" id="f-mission-id">—</span>
+        </div>
+        <div class="result-detail-row">
+          <span class="result-detail-key">Current Status</span>
+          <span class="result-detail-val" id="f-status">—</span>
+        </div>
+        <div class="result-detail-row">
+          <span class="result-detail-key">Timestamp</span>
+          <span class="result-detail-val" id="f-timestamp">—</span>
+        </div>
+      </div>
+
+      <!-- Business Rule Explanation Box (shown for business rule failures) -->
+      <div class="alert alert-warning" id="business-rule-box" style="text-align: left; display: none;">
+        <span class="alert-icon">⚠️</span>
+        <div>
+          <strong>Business Rule Violation:</strong><br/>
+          Missions can only be updated when their status is <strong>"Pending"</strong>.
+          Missions that are <strong>Dispatched</strong>, <strong>Delivered</strong>, or
+          <strong>Cancelled</strong> are locked and cannot be modified.
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="btn-group">
+        <a href="search.html" class="btn btn-danger" id="btn-try-again">
+          🔍 Try Another Search
+        </a>
+        <a href="index.html" class="btn btn-outline" id="btn-go-home">
+          🏠 Back to Home
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Particles (red tint) -->
+  <script>
+    for (let i = 0; i < 10; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.animationDuration = (Math.random() * 15 + 10) + 's';
+      p.style.animationDelay = (Math.random() * 10) + 's';
+      p.style.background = '#ff4757';
+      document.body.appendChild(p);
+    }
+
+    // Load failure data from sessionStorage
+    window.addEventListener('DOMContentLoaded', () => {
+      const error = JSON.parse(sessionStorage.getItem('failureResult') || '{}');
+
+      document.getElementById('f-error-type').textContent  = error.errorType  || 'Unknown Error';
+      document.getElementById('f-reason').textContent      = error.reason     || error.message || 'Operation could not be completed.';
+      document.getElementById('f-mission-id').textContent  = error.missionId  || '—';
+      document.getElementById('f-status').textContent      = error.currentStatus || '—';
+      document.getElementById('f-timestamp').textContent   = new Date().toLocaleString('en-IN');
+
+      if (error.title) {
+        document.getElementById('failure-title').textContent   = error.title;
+      }
+      if (error.message) {
+        document.getElementById('failure-message').textContent = error.message;
+      }
+
+      // Show business rule box if applicable
+      if (error.businessRule) {
+        document.getElementById('business-rule-box').style.display = 'flex';
+      }
+    });
+  </script>
+</body>
+</html>
