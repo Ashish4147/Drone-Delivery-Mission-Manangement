@@ -1,4 +1,4 @@
-﻿# Drone-Delivery-Mission-Manangement
+﻿
 # Drone Delivery Mission Management
 
 ## Overview
